@@ -6,22 +6,28 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AngularFireModule }  from "@angular/fire/compat";
-import { FirestoreModule }  from "@angular/fire/firestore";
-
 import { environment } from 'src/environments/environment.prod';
+import { CategoriesComponent } from './categories/categories.component';
+import { FormsModule } from '@angular/forms';
+// Import AngularFire modules
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    FirestoreModule
+    AngularFirestoreModule,
+    FormsModule,
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
