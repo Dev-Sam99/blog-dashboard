@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
-            <h3 class="text-center text-theme-primary">New Categories</h3>
+            <h3 class="text-center text-theme-primary">{{formStatus}} Categories</h3>
             <p class="text-center mb-5"> You can add new categories here..!</p>
             <form action="" class="form-inline text-center" [formGroup]="categoryForm" (ngSubmit)="submitData()">
                 <div class="form-group col-md-10">
@@ -15,5 +15,31 @@
                 </div>
             </form>
         </div>
+    </div>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card shadow-effect">
+                <div class="card-body">
+                    <table class="table row-border hover">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Category Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = 'let cat of categoryList; let i = index'>
+                                <td>{{i+1}}</td>
+                                <td>{{cat.data.category | firstLetterCapital}}</td>
+                                <td> <button class="btn btn-sm btn-warning" (click)="updateCat(cat.id,cat.data.category)">Edit</button> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
     </div>
 </div>

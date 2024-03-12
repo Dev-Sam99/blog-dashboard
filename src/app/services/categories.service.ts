@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,26 @@ export class CategoriesService {
       console.log(err);
       this.toastr.warning('Error while adding new category...!');
 
+    })
+  }
+
+  loadData(){
+    return this.firestore.collection('categories').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map( entry => {
+          const data = entry.payload.doc.data();
+          const id = entry.payload.doc.id;
+          return { id , data}
+        })
+      })
+    )
+  }
+
+  updateData(id,newData){
+    this.firestore.collection('categories').doc(id).update(newData).then(decRef =>{
+      this.toastr.success('Category updated successfully...!');
+    }).catch(err =>{
+      this.toastr.warning('Error occurred while updating category.');
     })
   }
 }

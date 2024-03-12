@@ -10,12 +10,18 @@ import { Category } from '../models/category';
 export class CategoriesComponent implements OnInit{
   categoryForm : FormGroup;
   submitted = false;
+  categoryList :any;
+  formStatus = "Add";
+  editingCategoryId = 0;
   constructor(private fb:FormBuilder,private catService: CategoriesService){}
   ngOnInit(){
     this.categoryForm = this.fb.group({
       category: ['',Validators.required]
   });
-
+    this.catService.loadData().subscribe(data => {
+      console.log(data);
+      this.categoryList = data;
+    })
 }
 get f() { return this.categoryForm.controls; }
 
@@ -34,9 +40,21 @@ get f() { return this.categoryForm.controls; }
       let categoryData : Category ={
         category : stringAfterExtraSpacesRemoved,
       }
-      this.catService.saveData(categoryData);
+      if(this.formStatus == 'Add'){
+        this.catService.saveData(categoryData);
+      }
+      else{
+        this.catService.updateData(this.editingCategoryId,categoryData);
+        this.formStatus = "Add";
+      } 
       this.submitted = false;
       this.categoryForm.reset();
+  }
+
+  updateCat(id,cat){
+    this.editingCategoryId = id;
+    this.categoryForm.patchValue({category:cat});
+    this.formStatus = "Edit";
   }
 
 }
