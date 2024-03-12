@@ -15,6 +15,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirstLetterCapitalPipe } from './pipes/first-letter-capital.pipe';
+import { NewPostComponent } from './posts/new-post/new-post.component';
+import { AlPostComponent } from './posts/al-post/al-post.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FirstLetterCapitalPipe } from './pipes/first-letter-capital.pipe';
     FooterComponent,
     DashboardComponent,
     CategoriesComponent,
-    FirstLetterCapitalPipe
+    FirstLetterCapitalPipe,
+    NewPostComponent,
+    AlPostComponent
   ],
   imports: [
     BrowserModule,
