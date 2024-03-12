@@ -56,5 +56,9 @@ get f() { return this.categoryForm.controls; }
     this.categoryForm.patchValue({category:cat});
     this.formStatus = "Edit";
   }
+  removeCat(id){
+    console.log(id);
+    this.catService.deleteData(id);
+  }
 
 }

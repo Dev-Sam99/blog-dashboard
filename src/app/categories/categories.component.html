@@ -33,7 +33,10 @@
                             <tr *ngFor = 'let cat of categoryList; let i = index'>
                                 <td>{{i+1}}</td>
                                 <td>{{cat.data.category | firstLetterCapital}}</td>
-                                <td> <button class="btn btn-sm btn-warning" (click)="updateCat(cat.id,cat.data.category)">Edit</button> </td>
+                                <td> 
+                                    <button class="btn btn-sm btn-warning" (click)="updateCat(cat.id,cat.data.category)">Edit</button>&nbsp;
+                                    <button class="btn btn-sm btn-danger" (click)="removeCat(cat.id)">Delete</button> 
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -34,10 +34,21 @@ export class CategoriesService {
   }
 
   updateData(id,newData){
-    this.firestore.collection('categories').doc(id).update(newData).then(decRef =>{
+    this.firestore.doc(`categories/${id}`).update(newData).then(decRef =>{
       this.toastr.success('Category updated successfully...!');
-    }).catch(err =>{
-      this.toastr.warning('Error occurred while updating category.');
     })
+    // .catch(err =>{
+    //   this.toastr.warning('Error occurred while updating category.');
+    // })
+  }
+
+  deleteData(id){
+    this.firestore.doc(`categories/${id}`).delete().then(docref =>{
+      this.toastr.info('category deleted from the list...!');
+    })
+    // .catch(err =>{
+    //   this.toastr.warning('Error occurred while deleting category.');
+
+    // })
   }
 }
