@@ -1,27 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoriesService } from '../services/categories.service';
+import { Category } from '../models/category';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit{
-  category:any;
-  constructor(private firestore: AngularFirestore){}
-  ngOnInit(): void {
-    
-  }
+  categoryForm : FormGroup;
+  submitted = false;
+  constructor(private fb:FormBuilder,private catService: CategoriesService){}
+  ngOnInit(){
+    this.categoryForm = this.fb.group({
+      category: ['',Validators.required]
+  });
 
-  submitData(formData){
-      let categoryData ={
-        category : formData.value.category
+}
+get f() { return this.categoryForm.controls; }
+
+  submitData(){
+    this.submitted = true;
+    let stringAfterExtraSpacesRemoved= this.categoryForm.value.category.trim().replaceAll('  ','');
+    console.log()
+    if (stringAfterExtraSpacesRemoved.trim()=='') {
+      alert('You are sending blank string as Category Name. Please provide a valid name');
+      return;
+    }
+
+    if (this.categoryForm.invalid) {
+      return;
+    }
+      let categoryData : Category ={
+        category : stringAfterExtraSpacesRemoved,
       }
-      console.log(categoryData);
-      this.firestore.collection("categories").add(categoryData).then(docRef =>{
-        console.log(docRef);
-      }).catch(err=>{
-        console.log(err);
-      })
+      this.catService.saveData(categoryData);
+      this.submitted = false;
+      this.categoryForm.reset();
   }
 
 }

@@ -3,12 +3,15 @@
         <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
             <h3 class="text-center text-theme-primary">New Categories</h3>
             <p class="text-center mb-5"> You can add new categories here..!</p>
-            <form action="" class="form-inline text-center" #categoryForm = 'ngForm' (ngSubmit)="submitData(categoryForm)">
+            <form action="" class="form-inline text-center" [formGroup]="categoryForm" (ngSubmit)="submitData()">
                 <div class="form-group col-md-10">
-                    <input type="text" class="form-control shadow-effect w-100" name='category' placeholder="Add new categories" ngModel>
+                    <input type="text" class="form-control shadow-effect w-100" name='category' placeholder="Add new categories" required [ngClass]=" submitted && f.category?.errors?.required == true  ? 'set-error-border' : '' " formControlName="category">
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-block btn-info mb-2 btn-theme">Add Category</button>
+                    <button type="submit" class="btn btn-block btn-info mb-2 btn-theme" [disabled]="categoryForm.invalid">Add Category</button>
+                </div>
+                <div *ngIf="submitted && f.category?.errors" class="text-danger">
+                    <div *ngIf="submitted && f.category?.errors?.required" class="ml-3">Category is required</div>
                 </div>
             </form>
         </div>
