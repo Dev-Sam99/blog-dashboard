@@ -50,7 +50,7 @@
                     <label for="">Please select a post category</label>
                     <select name="" class="form-control" id="" formControlName = "category" [ngClass]="{'is-invalid' : f.category.touched && f.category.invalid}">
                         <option value="" disabled> Please select a category</option>
-                        <option value="cat.data.category" *ngFor="let cat of categoryList"> {{cat.data.category}}</option>
+                        <option value="{{cat.id}}-{{cat.data.category}}" *ngFor="let cat of categoryList"> {{cat.data.category}}</option>
                     </select>
                     <div *ngIf="f.category.errors?.required">
                         <div class="alert alert-danger" *ngIf="f.category.touched && f.category.invalid">
