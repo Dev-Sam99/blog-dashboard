@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { validateEventsArray } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -15,7 +16,26 @@ export class NewPostComponent implements OnInit {
   selectedImg: any;
   categoryList: { id: string; data: unknown; }[];
   postForm : FormGroup;
-  constructor(private catService:CategoriesService,private fb : FormBuilder,private postService : PostsService){
+  editPostData : any;
+  formStatus : string = 'Add New';
+  docId : any;
+  constructor(private catService:CategoriesService,private fb : FormBuilder,private postService : PostsService,private route:ActivatedRoute){
+    route.queryParams.subscribe(val=>{
+      this.docId = val.id;
+      this.postService.loadEditPostData(val.id).subscribe(data =>{
+        this.editPostData = data;
+        console.log(this.editPostData);
+        this.postForm.patchValue({
+          title:this.editPostData.title,
+          permalink : this.editPostData.permalink,
+          details : this.editPostData.details,
+          category : `${this.editPostData.category.categoryId}-${this.editPostData.category.category}`, 
+          content : this.editPostData.content
+        });
+        this.imgSrc = this.editPostData.postImgPath;
+        this.formStatus = 'update'
+      })
+    })
     this.postForm = fb.group({
       title : ['',[Validators.required,Validators.minLength(10)]],
       permalink : [{value:'',disabled:true},[Validators.required]],
@@ -73,7 +93,9 @@ export class NewPostComponent implements OnInit {
       status : 'new',
       createdAt : new Date()
     }
-    this.postService.uploadImage(this.selectedImg);
+    this.postService.uploadImage(this.selectedImg,newPostData,this.formStatus,this.docId);
+    this.postForm.reset();
+    this.imgSrc = './assets/img-prev.png';
   }
-
+  
 }

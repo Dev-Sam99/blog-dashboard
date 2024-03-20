@@ -13,4 +13,38 @@
             </div>  
         </div>
     </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card shadow-effect">
+                <div class="card-body">
+                    <table class="table table-row hover">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Post Image</th>
+                                <th>Title</th>
+                                <th>Details</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let post of postsList; let i = index">
+                                <td width="10">{{i+1}}</td>
+                                <td width="200"><img src="{{post.data.postImgPath}}" class="img img-fluid" alt=""></td>
+                                <td width="200">{{post.data.title  | titlecase}}</td>
+                                <td width="300">{{post.data.details}}</td>
+                                <td>{{post.data.category.category | titlecase}}</td>
+                                <td>{{post.data.createdAt.toMillis() | date}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" routerLink="/posts/new" [queryParams]="{id:post.id}">Edit</button>
+                                </td>
+                            </tr>                       
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
