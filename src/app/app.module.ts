@@ -20,6 +20,9 @@ import { AlPostComponent } from './posts/al-post/al-post.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { LoginComponent } from './auth/login/login.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     CategoriesComponent,
     FirstLetterCapitalPipe,
     NewPostComponent,
-    AlPostComponent
+    AlPostComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     BrowserAnimationsModule,
     AngularEditorModule,
     HttpClientModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

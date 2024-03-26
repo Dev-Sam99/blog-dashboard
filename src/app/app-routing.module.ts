@@ -4,9 +4,11 @@ import { CategoriesComponent } from './categories/categories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewPostComponent } from './posts/new-post/new-post.component';
 import { AlPostComponent } from './posts/al-post/al-post.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {path:'',component:DashboardComponent},
+  {path:'login',component:LoginComponent},
   {path:'categories',component:CategoriesComponent},
   {path:'posts', component:AlPostComponent},
   {path:'posts/new',component:NewPostComponent}
