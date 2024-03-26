@@ -54,4 +54,22 @@ export class PostsService {
       this.router.navigate(['/posts']); 
     })
   }
+
+  deleteImage(postImgPath,id){
+    this.fireStorage.storage.refFromURL(postImgPath).delete().then(()=>{
+      this.deletePostData(id);
+    })
+  }
+
+  deletePostData(id){
+    this.firestore.doc(`posts/${id}`).delete().then(()=>{
+      this.toastr.warning('Post deleted successfully...!!!');
+    })
+  }
+
+  isFeaturedOrNot(id,featuredData){
+    this.firestore.doc(`posts/${id}`).update(featuredData).then(()=>{
+      featuredData?.isFeatured == true ? this.toastr.info(`Post is marked as FEATURED`) : this.toastr.info(`Post is marked as NOT FEATURED`)
+    })
+  }
 }

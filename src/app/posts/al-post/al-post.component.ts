@@ -16,4 +16,13 @@ export class AlPostComponent implements OnInit{
     this.postsList = val;
   })
  }
+ onDelete(imgPath,id){
+  this.postService.deleteImage(imgPath,id);
+ }
+ onFeatured(id,toggle){
+  const featuredData = {
+    isFeatured : toggle
+  }
+  this.postService.isFeaturedOrNot(id,featuredData);
+ }
 }
