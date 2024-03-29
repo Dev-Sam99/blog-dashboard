@@ -29,4 +29,11 @@ export class AuthService {
   })
  }
 
+ logOut(){
+  this.authFire.signOut().then(()=>{
+    this.toastr.success('User logged out successfully...!');
+    this.router.navigate(['/login']);
+  });
+ }
+
 }
