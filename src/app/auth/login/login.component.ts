@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,15 +11,20 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit{
 
   constructor(private fb : FormBuilder,
-    private authService:AuthService){}
+    private authService:AuthService,
+    private router:Router){}
    loginForm :FormGroup;
-  ngOnInit(): void {
+
+  async ngOnInit() {
   this.loginForm = this.fb.group({
     email : ['',[Validators.required, Validators.email]],
     password : ['',Validators.required],
   });
-  this.authService.loadUser();
+  if(localStorage.getItem('user')){
+    this.router.navigate(['/dashboard'])
   }
+  }
+  
   get f(){
     return this.loginForm.controls;
   }

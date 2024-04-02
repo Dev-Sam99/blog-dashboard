@@ -2,8 +2,8 @@
     <div class="container justify-content-center">
         <a href="#" class="site-logo">BlogName</a>
     </div>
-    <div class="container justify-content-center">
-        <a href="#" class="mr-3">{{user?._delegate?.email}}</a>
+    <div class="container justify-content-center" *ngIf="userEmail">
+        <a href="#" class="mr-3">{{ userEmail }}</a>
         <button class="btn btn-sm btn-info bg-secondary-theme text-theme-primary" (click)="logOut()">Logout</button>
     </div>
 </header>
